@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            div{
+                box-sizing: border-box;
+            }
+
+            #wrap{
+                width: 1200px;
+                height: 400px;
+                margin: auto;
+                box-shadow: 1px 1px 1px lightgray;
+            }
+
+            .card{
+                width: 230px;
+                height: 360px;
+                padding-bottom: 20px;
+                display: inline-block;
+
+                &:hover {
+                    box-shadow: 1px 2px 4px lightgray;
+                }
+            }
+
+            .card > img {
+                width: 230px;
+                height: 300px;
+            }
+
+            .card > h4 {
+                font-size: 18px;
+                font-weight: 800;
+            }
+
+            .card > p {
+                font-size: 14px;
+                font-weight: 500;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <h1>배열과 객체의 활용</h1>
+
+        <h3>* 객체배열 써보기</h3>
+
+        <!-- 느낌 -->
+        <div id="wrap">
+
+        <script>
+            window.onload = function() {
+
+                // 컨트롤러로 요청을 보냄 ~
+                
+                function 요청보내는함수() {
+                    // 얼씨구절씨구 ~~~
+                }
+
+                요청보내는함수();
+
+                // 컨트롤러가 반환해주는 응답데이터라고 가정
+                const webtoons = [
+                    {
+                        Image : "https://image-comic.pstatic.net/webtoon/842620/thumbnail/thumbnail_IMAG21_44eb7809-90e1-46da-a0ec-1ead08a8e9e9.jpg",
+                        title : "해골전령 이야기",
+                        author : "kain_y, 소라게"
+                    },
+                    {
+                        Image : "https://image-comic.pstatic.net/webtoon/807178/thumbnail/thumbnail_IMAG21_28fcfb22-aae7-41b4-8767-05f6dd176b03.jpg",
+                        title : "캐슬 2:만인지상",
+                        author : "정연, 박만사"
+                    },
+                    {
+                        Image : "https://image-comic.pstatic.net/webtoon/642598/thumbnail/thumbnail_IMAG21_c784c8b0-c6d3-46ca-9a02-d3c4c04a8c83.jpg",
+                        title : "조선왕조실톡",
+                        author : "무적핑크"
+                    },
+                    {
+                        Image : "https://image-comic.pstatic.net/webtoon/747269/thumbnail/thumbnail_IMAG21_aabd9952-ff45-47a2-a543-33f19a5c6708.jpg",
+                        title : "전지적 독자 시점",
+                        author : "UMI / 슬리피-C /싱숑"
+                    },
+                    {
+                        Image : "https://image-comic.pstatic.net/webtoon/838002/thumbnail/thumbnail_IMAG21_aee939b2-2d3c-445f-a7d8-82414f4f9482.jpg",
+                        title : "종말이 찾아왔다",
+                        author : "전선욱"
+                    },
+                    ];
+
+                    console.log(webtoons);
+
+                    //const skeleton = webtoons[0];
+
+                    // console.log(skeleton);
+                    /*
+                    const webtoon1 = `<div class="card">
+                                        <image src="${skeleton.Image}"/>
+                                        <h4>${skeleton.title}</h4>
+                                        <p>${skeleton.author}</p>
+                                      </div>`;
+                    */
+
+                    let element = "";
+
+                    for(let webtoon of webtoons) {
+                        element += `<div class="card">
+                                        <img src ="${webtoon.Image}" />
+                                        <h4>${webtoon.title}</h4>
+                                        <p>${webtoon.author}</p>
+                                    </div>`;
+                    };
+                    
+                    document.getElementById('wrap').innerHTML = element;
+                                    
+                }
+        </script>
+        <script>
+            window.onload = function() {
+                const airbandb = [
+                    {
+                        Image : "https://a0.muscache.com/im/pictures/hosting/Hosting-1157133225923295926/original/1664a4f5-dde0-404b-abb8-75b15946d44c.jpeg?im_w=720",
+                        title : "부산의 아파트",
+                        starRating : "4.95(82)",
+                        info : "yezas 광안 c-8 #통유리고층뷰#광안대교정면 #드론쇼명당#넷플릭스#해변1분",
+                        price : "251,059"
+                    },
+                    {
+                        Image : "https://a0.muscache.com/im/pictures/hosting/Hosting-1254611685750285523/original/5a7cbab5-d254-4068-81f2-7aeec2554cf9.jpeg?im_w=720",
+                        title : "동래구의 아파트",
+                        starRating : "4.86(66)",
+                        info : "해온 숙박",
+                        price : "80,453"
+                    },
+                    {
+                        Image : "https://a0.muscache.com/im/pictures/9f34b370-3de6-4bc2-9119-81be266c3bc9.jpg?im_w=720",
+                        title : "부산의 아파트",
+                        starRating : "4.96(251)",
+                        info : "더쉘광안•광안리1등•바다1초•거실침실분리•광안대교정면중앙•야경•부띠크호텔식•체크아웃연장",
+                        price : "346,011"
+                    },
+                    {
+                        Image : "https://a0.muscache.com/im/pictures/hosting/Hosting-1157133225923295926/original/1664a4f5-dde0-404b-abb8-75b15946d44c.jpeg?im_w=720",
+                        title : "부산의 아파트",
+                        starRating : "4.95(82)",
+                        info : "yezas 광안 c-8 #통유리고층뷰#광안대교정면 #드론쇼명당#넷플릭스#해변1분",
+                        price : "251,059"
+                    },
+                    {
+                        Image : "https://a0.muscache.com/im/pictures/hosting/Hosting-1157133225923295926/original/1664a4f5-dde0-404b-abb8-75b15946d44c.jpeg?im_w=720",
+                        title : "부산의 아파트",
+                        starRating : "4.95(82)",
+                        info : "yezas 광안 c-8 #통유리고층뷰#광안대교정면 #드론쇼명당#넷플릭스#해변1분",
+                        price : "251,059"
+                    }
+                ]
+            }
+        </script>
+        </div>
+    </body>
+</html>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
