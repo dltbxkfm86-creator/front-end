@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        .item {
+            background-color: gold;
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            border: 2px solid goldenrod;
+            line-height: 51px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Navbar</a>
+                </div>
+            </nav>
+        </div>
+    </nav>
+
+    <nav class="navbar bg-primary" data-bs-theme="dark">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-md">
+                <a class="navbar-brand" href="#">Navbar</a>
+            </div>
+        </nav>
+    </nav>
+
+    <nav class="navbar" style="background-color: #e3f2fd;" data-bs-theme="light">
+        <!-- Navbar content -->
+    </nav>
+
+    <h1>금요일 </h1>
+
+    <h3>Content영역과 관련된 메소드</h3>
+
+    <pre>
+            선택된 요소의 content영역(여는태그와 닫는태그사이)을 반환해주거나
+            또는 변경해주는 메소드들 <br>
+
+            - $("선택자").html()
+            - $("선택자").text()
+            - 선택된 요소의 content영역 값을 반환해줌 <br>
+            - $("선택자").html("인자값")
+            - $("선택자").text("인자값")
+            - 선택된 요소의 content영역의 값을 전달한 인자값으로 바꿔줌 <br>
+
+            => 이때, html()는 HTML태그를 인식
+        </pre>
+
+    <h3 id="test1">
+        <a href="http://www.naver.com">네이버로 이동~</a>
+    </h3>
+    <h3 id="test2"></h3>
+
+    <button id="btn1">버튼</button>
+
+    <script>
+        $(function () {
+            $("#btn1").click(function () {
+                const url = prompt("이동할 URL를 입력해주세요.");
+                const test1Content = $('#test1').html();
+                // console.log(test1Content);
+                $("#test2").html(test1Content);
+                $("#test2").children("a").attr("href", url);
+            });
+        });
+    </script>
+
+    <hr>
+
+    <h2>요소 생성 및 제거</h2>
+
+    <h3>* 동적으로 요소 생성</h3>
+
+    <div id="area1"></div>
+
+    <button id="btn2">요소 생성하기</button>
+
+    <script>
+        $(function () {
+            $("#btn2").on("click", function () {
+
+                // <p> ~~ </p>
+                // 1. 문자열로 만드는 방법
+                const el1 = '<p>CreateElement By Text</p>';
+                document.getElementById("area1").innerHTML = el1;
+
+                // 2. jQuery방식
+                const el2 = $("<p></p>").text("CreateElement ByjQuery");
+
+                $("#area1").append(el2);
+                $("#area1").append(el1);
+
+                $("#area1").append(el1, el2);
+
+                $("area1").append(createMyElement("h1", "하이하이"));
+
+            });
+
+            function createMyElement(element, content) {
+                return `<${element}>${content}`;
+            }
+        })
+    </script>
+
+    <hr>
+
+    <h3>* 추가 관련 메소드</h3>
+
+    <pre>
+            선택된 요소를 기준으로 새롭게 생성된 요소를 추가해주는 메소드
+
+            $(A).append(B) : A요소 내부에 가장 뒷부분에 B를 추가(자식) <br>
+            $(A).prepend(B) : A요소 내부에 가장 앞부분에 B를 추가(자식) <br>
+            $(A).before(B) : A요소 앞 부분에 B를 추가(동위) <br>
+            $(A).after(B) : A요소 뒷 부분에 B를 추가(동위) <br>
+
+            <hr>
+
+            $(B).appendTo(A) : B를 A요소 내부에 뒷부분에 추가(자식) <br>
+            $(B).prependTo(A) : B를 요소 내부에 앞부분에 추가(자식) <br>
+            $(B).insertBefore(A) : B를 A요소 앞부분에 추가(동위) <br>
+            $(B).insertAfter(A) : B를 A요소 뒷부분에 추가(동위) 
+        </pre>
+
+    <!-- A == h2 -->
+    <!-- B == span -->
+
+    <h2 id="test4">A
+        <div>div</div>
+        <!-- B -->
+    </h2>
+    <h2 id="test5">A
+        <!-- B -->
+        <div>div</div>
+    </h2>
+
+    <!--B -->
+    <h2 id="test6">A
+        <div>div</div>
+    </h2>
+    <h2 id="test7">
+        <div>div</div>
+    </h2>
+    <!-- B -->
+
+    <script>
+        $(function () {
+            const span = '<span style="color : red">나는 span이다</span>';
+
+            $("#test4").append(span);
+            $("#test5").prepend(span);
+            $("#test6").before(span);
+            $("#test7").after(span);
+        })
+    </script>
+
+    <hr>
+
+    <h3>* 요소 객체 복제하는 메소드</h3>
+
+    <p>
+        $("선택자").clone(true / false); <br>
+        복제한 요소 이벤트도 복제할건지 지정(생략 시 false)
+    </p>
+
+    <button id="clone">복제</button>
+
+    <div id="clone-area">
+
+        <!-- 복제할 요소-->
+        <div class="item">
+            <p>골드바</p>
+        </div>
+    </div>
+    <div id="clone-result">
+
+    </div>
+
+    <script>
+        $(function () {
+
+            $('#clone-area').children().click(function () {
+                $(this).css("color", "goldenrod");
+            });
+
+            // 복제 버튼 클릭 시 해당 요소를 복사해서
+            // clone-result의 자식요소로 추가
+            $("#clone").click(function () {
+                const $copyEl = $("#clone-area>.item").clone(true);
+                $('#clone-result').append($copyEl);
+            });
+        })
+    </script>
+
+    <hr>
+
+    <h3>* 요소객체 제거 / 잘라내기 메소드</h3>
+
+    <p>
+        $("선택자").empty() : 선택된 요소의 모든 후손요소 제거 <br> <br>
+
+        $("선택자").remove() / detach() : 해당 요소 잘라내기 <br>
+        - remove : 요소의 이벤트가 날아가버림 <br>
+        - detach : 이벤트가 같이 잘라내짐
+    </p>
+
+    <button id="empty">empty</button> <br>
+    <button id="remove">remove</button> <br>
+    <button id="detach">detach</button> <br><br><br>
+
+    <div id="remove-area">
+        <div id="item1" class="item">
+            <span>날 제거해라</span>
+        </div>
+    </div>
+
+    <hr>
+    <div id="remove-result"></div>
+
+    <script>
+        $(function () {
+
+            $("#empty").click(function () {
+                $("#remove-area").empty();
+            });
+
+            $("#remove").click(function () {
+                const $el = $("#item1").remove(); // 제거 == 제거된 요소를 반환
+                $("#remove-result").append($el);
+            });
+
+            $('#item1').mouseenter(function () {
+                $(this).css("color", "red");
+            });
+
+            $("#detach").click(function () {
+                const $el = $("#item1").detach();
+                $("#remove-result").append($el);
+            });
+        });
+    </script>
+
+    <hr>
+
+
+    <h3>시각적인 효과 메소드</h3>
+
+    <p>
+        페이지 내부에서 애니메이션 효과를 만들기 위해 사용하는 메소드 <br><br>
+    </p>
+
+    <button class="btn btn-sm btn-primary">아임 버튼</button>
+
+    <button type="button" class="btn btn-outline-primary">Primary</button>
+    <button type="button" class="btn btn-outline-secondary">Secondary</button>
+    <button type="button" class="btn btn-outline-success">Success</button>
+    <button type="button" class="btn btn-outline-danger">Danger</button>
+    <button type="button" class="btn btn-outline-warning">Warning</button>
+    <button type="button" class="btn btn-outline-info">Info</button>
+    <button type="button" class="btn btn-outline-light">Light</button>
+    <button type="button" class="btn btn-outline-dark">Dark</button>
+
+    <div class="card" style="width: 18rem;">
+        <img src="data:image/jpeg;base64,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"
+            class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">짱구</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
+                content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        메뉴보기
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">이메일 주소</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                            placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">
+                            쓰고싶은 내용</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script> <br><br>
+
+    <button type="button" class="btn btn-primary position-relative">
+        Inbox
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            99+
+            <span class="visually-hidden">unread messages</span>
+        </span>
+    </button>
+    <button type="button" class="btn-close" aria-label="Close"></button>
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small class="text-body-secondary">11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+</body>
+
+</html>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
